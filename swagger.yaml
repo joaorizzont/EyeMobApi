@@ -1,0 +1,45 @@
+swagger: "2.0"
+info:
+  description: "API description"
+  version: "1.0"
+  title: "EyeMob"
+host: "localhst"
+basePath: "localhost"
+tags:
+
+- name: "Auth"
+  description: ""
+
+- name: "Terminal"
+  description: ""
+
+- name: "Portal"
+  description: ""
+
+schemes:
+- "HTTP protocol"
+paths:
+  /auth/singin:
+    post:
+      tags:
+      - "Auth"
+      summary: "sing in"
+      consumes:
+        - "application/json"
+      parameters:
+      - name: "Content-Type"
+        in: "header"
+        type: "string"
+        description: ""
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+  /portal/extract:
+    get:
+      tags:
+      - "Portal"
+      summary: "Extrato"
+      responses:
+        200:
+          description: "successful operation"
