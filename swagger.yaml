@@ -1,45 +1,231 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
-  description: "API description"
-  version: "1.0"
-  title: "EyeMob"
-host: "localhst"
-basePath: "localhost"
-tags:
-
-- name: "Auth"
-  description: ""
-
-- name: "Terminal"
-  description: ""
-
-- name: "Portal"
-  description: ""
-
-schemes:
-- "HTTP protocol"
+  version: '1.0'
+  title: EyeMob
+  description: ''
+  contact: {}
+host: localhost:3000
+basePath: /
+securityDefinitions: {}
+schemes: []
+consumes:
+- application/json
+produces:
+- application/json
 paths:
-  /auth/singin:
-    post:
+  /portal/balance:
+    get:
+      description: ''
+      summary: saldo
       tags:
-      - "Auth"
-      summary: "sing in"
-      consumes:
-        - "application/json"
+      - Portal
+      operationId: saldo
+      deprecated: false
+      produces:
+      - application/json
       parameters:
-      - name: "Content-Type"
-        in: "header"
-        type: "string"
-        description: ""
-        required: true
+      - name: Authorization
+        in: header
+        required: false
+        default: Bearer {token}
+        type: string
       responses:
         200:
-          description: "successful operation"
+          description: ''
+          schema:
+            type: object
+          headers: {}
   /portal/extract:
     get:
+      description: ''
+      summary: Extrato
       tags:
-      - "Portal"
-      summary: "Extrato"
+      - Portal
+      operationId: Extrato
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        default: Bearer {token}
+        type: string
       responses:
         200:
-          description: "successful operation"
+          description: ''
+          schema:
+            type: object
+          headers: {}
+  /terminal/payment:
+    post:
+      description: ''
+      summary: payment
+      tags:
+      - Terminal
+      operationId: payment
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        default: Bearer {token}
+        type: string
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/paymentRequest'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: ''
+      responses:
+        200:
+          description: ''
+          schema:
+            type: object
+          headers: {}
+  /auth/login:
+    post:
+      description: ''
+      summary: login
+      tags:
+      - Auth
+      operationId: login
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        default: Bearer {token}
+        type: string
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/loginRequest'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: ''
+      responses:
+        200:
+          description: ''
+          schema:
+            type: object
+          headers: {}
+  /auth/singin:
+    post:
+      description: ''
+      summary: sing in
+      tags:
+      - Auth
+      operationId: singin
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        default: Bearer {token}
+        type: string
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/singinRequest'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: ''
+      responses:
+        200:
+          description: ''
+          schema:
+            type: object
+          headers: {}
+definitions:
+  paymentRequest:
+    title: paymentRequest
+    example:
+      nsu: 0459356
+      valor: 50
+      bandeira: VISA
+      modalidade: credito
+      horario: 2020-03-18T06:02:01-03:00
+    type: object
+    properties:
+      nsu:
+        type: string
+      valor:
+        type: number
+        format: double
+      bandeira:
+        type: string
+      modalidade:
+        type: string
+      horario:
+        type: string
+    required:
+    - nsu
+    - valor
+    - bandeira
+    - modalidade
+    - horario
+  loginRequest:
+    title: loginRequest
+    example:
+      login: portal
+      pass: 123456
+    type: object
+    properties:
+      login:
+        type: string
+      pass:
+        type: string
+    required:
+    - login
+    - pass
+  singinRequest:
+    title: singinRequest
+    example:
+      login: portal
+      pass: 123456
+      type: Portal
+    type: object
+    properties:
+      login:
+        type: string
+      pass:
+        type: string
+      type:
+        type: string
+    required:
+    - login
+    - pass
+    - type
+tags:
+- name: Portal
+  description: ''
+- name: Terminal
+  description: ''
+- name: Auth
+  description: ''
