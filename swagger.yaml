@@ -4,7 +4,7 @@ info:
   title: EyeMob
   description: ''
   contact: {}
-host: localhost:3000
+host: https://eye-mobile-api.herokuapp.com
 basePath: /
 securityDefinitions: {}
 schemes: []
